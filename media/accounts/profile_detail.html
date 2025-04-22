@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <h2>Profile of {{ profile.user.username }}</h2>
+  <p>{{ profile.bio }}</p>
+  {% if profile.avatar %}
+    <img src="{{ profile.avatar.url }}" alt="Avatar" width="150">
+  {% endif %}
+  {% if request.user == profile.user %}
+    <a href="{% url 'profile_update' profile.pk %}">Edit</a>
+    <form action="{% url 'profile_delete' profile.pk %}" method="post">{% csrf_token %}<button type="submit">Delete</button></form>
+  {% endif %}
+{% endblock %}
